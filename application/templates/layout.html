@@ -4,11 +4,45 @@
       <meta charset="utf-8">
       <title>Uutissivusto</title>
     </head>
-
+    <p>
+        <h1>Uutissivusto</h1>
+    </p>
     <body>
+      {% if current_user.is_authenticated %}
+        <p>
+          Kirjautunut nimellä <a href="{{ url_for('aloitus') }}">{{ current_user.name }}</a>. <a href="{{ url_for('kirjaaulos') }}">Kirjaudu ulos</a>
+        </p>
+      {% else %}
+        <a href="{{ url_for('kirjaudu') }}">Kirjaudu</a>
+      {% endif %}
+        <table>
+          <tr>
+            <td>
+            
+            <a href="{{ url_for('aloitus') }}">Etusivu</a>
+            </td>
+            <td>
+            
+            <a href="{{ url_for('news_index') }}">Uutiset</a>
+            </td>
+            <td>
+            
+            <a href="{{ url_for('aloitus') }}">Kategoriat</a>
+            </td>
+            {% if current_user.is_authenticated %}
+            <td>
+            
+            <a href="{{ url_for('news_form') }}">Kirjoita artikkeli</a>
+            </td>
+            
+            {% endif %}
+            
+          </tr>
+        </table>
+
       {% block body %}
       <p>
-	Mikäli näet tämän tekstin, on jokin mennyt vikaan.
+    Mikäli näet tämän tekstin, on jokin mennyt vikaan.
       </p>
       {% endblock %}
     </body>

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+  {% block body %}
+  <form method="POST" action="{{ url_for('news_create') }}">
+    <table>
+      <tr>
+        <td>
+          {{ form.title.label }}
+        </td>
+        <td>
+          {{ form.title }}
+        </td>
+      </tr>
+      <tr>
+        <td>
+          {{ form.content.label }}
+        </td>
+        <td>
+          {{ form.content }}
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <input type="submit" value="Add a news story"/>
+        </td>
+      </tr>
+    <table>
+  </form>
+{% endblock %}
