@@ -5,7 +5,6 @@ from application import app, db
 from application.auth.models import User
 from application.auth.forms import NameForm, PasswordForm
 from application.tasks.models import Thread, Comment
-from application.tasks.functions import actives, inactives
       
 @app.route("/userpage")
 @login_required
@@ -19,27 +18,23 @@ def userpage():
 @login_required
 def newname():
     if request.method == "GET":
-        return render_template("auth/newname.html", form = NameForm(), 
-                               actives = actives(), inactives = inactives())
+        return render_template("auth/newname.html", form = NameForm())
         
     form = NameForm(request.form)
     
     if not form.validate():
         return render_template("auth/newname.html", form = form,
-                               error = "Invalid name", 
-                               actives = actives(), inactives = inactives())
+                               error = "Invalid name")
     
     user = User.query.filter_by(username=form.username.data).first()
     if user and not form.username.data == current_user.username:
         return render_template("auth/newname.html", form = form,
-                               error = "Name already in use", 
-                               actives = actives(), inactives = inactives())
+                               error = "Name already in use")
                                
     user = User.query.filter_by(name=form.username.data).first()
     if user:
         return render_template("auth/newname.html", form = form,
-                               error = "Name already in use", 
-                               actives = actives(), inactives = inactives())
+                               error = "Name already in use")
     
     current_user.name = form.username.data;
     db.session().commit()
@@ -50,15 +45,13 @@ def newname():
 @login_required
 def newpassword():
     if request.method == "GET":
-        return render_template("auth/newpassword.html", form = PasswordForm(), 
-                               actives = actives(), inactives = inactives())
+        return render_template("auth/newpassword.html", form = PasswordForm())
         
     form = PasswordForm(request.form)
     
     if not form.validate():
         return render_template("auth/newpassword.html", form = form,
-                               error = "Invalid password", 
-                               actives = actives(), inactives = inactives())
+                               error = "Invalid password")
                                
     current_user.password = form.password.data;
     db.session().commit()
