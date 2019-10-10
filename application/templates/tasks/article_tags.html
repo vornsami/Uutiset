@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <table>
+    <tr>
+      <th>Tag</th>
+      <th></th>
+    </tr>
+    {% for tag in tags %}
+    <tr>
+      <td>{{ tag.name }}</td>
+      <td>
+    <form method="POST" action="{{ url_for('news_tag_add', news_id=id, tag_id=tag.id) }}">
+      <input type="submit" value="Change status!"/>
+    </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  
+{% endblock %}

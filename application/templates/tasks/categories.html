@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <p><h2>Kategoriat:</h2></p>
+
+  <table>
+    {% for tag in tags %}
+    <tr>
+      <td><a href="{{ url_for('articles_with_tag',tag_id = tag.id) }}">{{ tag.name }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  
+{% endblock %}
