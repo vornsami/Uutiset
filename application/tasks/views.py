@@ -14,12 +14,12 @@ def news_index():
     return render_template("tasks/list.html", news = list(reversed((News.query.all()))))
 
 @app.route("/news/new/")
-@login_required
+@login_required(role="ADMIN")
 def news_form():
     return render_template("tasks/new.html", form = NewsForm())
 
 @app.route("/news/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def news_create():
     n = News(request.form.get("title"),request.form.get("content"),current_user.username)
 
@@ -43,7 +43,7 @@ def news_read(news_id):
 #Artikkelin tagien ylläpito
 
 @app.route("/news/<news_id>/tags", methods=["GET", "POST"])
-@login_required
+@login_required(role="ADMIN")
 def news_tag_management(news_id):
     
     return render_template("tasks/article_tags.html", 
@@ -52,7 +52,7 @@ def news_tag_management(news_id):
     )
  
 @app.route("/news/<news_id>/tags/<tag_id>/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def news_tag_add(news_id,tag_id):
     
     n = News.query.get(news_id)
@@ -66,12 +66,12 @@ def news_tag_add(news_id,tag_id):
 # Tageihin liittyvät asiat 
 
 @app.route("/tags/new/")
-@login_required
+@login_required(role="ADMIN")
 def tag_form():
     return render_template("tasks/newtag.html", form = TagForm())
 
 @app.route("/tags/", methods=["POST"])
-@login_required
+@login_required(role="ADMIN")
 def tag_create():
     n = Tag(request.form.get("name"))
 

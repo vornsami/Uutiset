@@ -5,7 +5,7 @@
   <table>
     {% for new in news %}
       <tr>
-        <td>{{ new.title }}</td>
+        <td><a href="{{ url_for('news_read',news_id = new.id) }}">{{ new.title }}</a></td>
       </tr>
       <tr><td><p></p></td></tr>
     {% endfor %}

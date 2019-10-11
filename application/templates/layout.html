@@ -29,7 +29,7 @@
             
             <a href="{{ url_for('categories') }}">Kategoriat</a>
             </td>
-            {% if current_user.is_authenticated %}
+            {% if current_user.is_admin %}
             <td>
             
             <a href="{{ url_for('news_form') }}">Kirjoita artikkeli</a>
