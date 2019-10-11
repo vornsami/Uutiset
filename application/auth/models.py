@@ -18,6 +18,7 @@ class User(db.Model):
 
 
     def __init__(self, name, username, password):
+        print("account created")
         self.name = name
         self.username = username
         self.password = password

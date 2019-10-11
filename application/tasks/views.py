@@ -1,11 +1,11 @@
 from flask import render_template, request, redirect, url_for
 
-from application import app, db
+from application import app, db, login_manager, login_required
 from application.tasks.models import News,Tag
 from application.tasks.forms import NewsForm,TagForm
+from flask_login import current_user
 
 from application.auth.models import User
-from flask_login import login_required, current_user
 
 # Artikkeleihin liittyvät asiat
 

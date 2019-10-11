@@ -29,13 +29,15 @@
             
             <a href="{{ url_for('categories') }}">Kategoriat</a>
             </td>
-            {% if current_user.is_admin %}
-            <td>
+      {% if current_user.is_admin %}
+              <td>
             
-            <a href="{{ url_for('news_form') }}">Kirjoita artikkeli</a>
-            </td>
-            
-            {% endif %}
+              <a href="{{ url_for('news_form') }}">Kirjoita artikkeli</a>
+              </td>
+      {% else %}
+              <td></td>
+			  
+      {% endif %}
             
           </tr>
         </table>

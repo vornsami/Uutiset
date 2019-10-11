@@ -5,9 +5,9 @@
 
   <table>
     {% for tag in tags %}
-    <tr>
-      <td><a href="{{ url_for('articles_with_tag',tag_id = tag.id) }}">{{ tag.name }}</td>
-    </tr>
+      <tr>
+        <td><a href="{{ url_for('articles_with_tag',tag_id = tag.id) }}">{{ tag.name }}</td>
+      </tr>
     {% endfor %}
   </table>
   
