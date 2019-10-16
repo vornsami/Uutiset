@@ -4,13 +4,13 @@
 
   <p><h3>{{ title }}:</h3></p>
   
-  <p>{{ content }}</p> 
+  <p style="text-align:left;">{{ content }}</p> 
   
   <table>
     <tr>
     {% for tag in tags %}
       
-      <td>{{ tag.name }}</a></td>
+      <td>{{ tag }}</a></td>
       
     {% endfor %}
     </tr>

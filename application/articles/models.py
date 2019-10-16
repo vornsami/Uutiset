@@ -54,7 +54,7 @@ class News(db.Model):
 
         response = []
         for row in res:
-            response.append({row['name']})
+            response.append(row['name'])
     
         return response
     
