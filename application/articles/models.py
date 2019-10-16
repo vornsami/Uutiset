@@ -38,7 +38,8 @@ class News(db.Model):
         res = db.engine.execute(stmt)
 		
         response = []
-        response.append(res)
+        for row in res:
+            response.append(row)
         return response[0]
         
     @staticmethod
