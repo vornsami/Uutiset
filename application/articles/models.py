@@ -33,7 +33,7 @@ class News(db.Model):
     @staticmethod
     def find_article(x):
         
-        stmt = text("SELECT * FROM News WHERE id = " + x + ";")
+        stmt = text("SELECT * FROM News WHERE id = :x ;").params(x=x)
         
         res = db.engine.execute(stmt).fetchall()
         response = []
@@ -48,7 +48,7 @@ class News(db.Model):
     @staticmethod
     def find_tags(x):
     
-        stmt = text("SELECT Tag.name FROM News,Connect,Tag WHERE news.id = " + x + " AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;")
+        stmt = text("SELECT Tag.name FROM News,Connect,Tag WHERE news.id = :x AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;").params(x=x)
     
         res = db.engine.execute(stmt)
 

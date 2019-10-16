@@ -1,4 +1,12 @@
 from application import db
+from sqlalchemy.sql import text
+from sqlalchemy.orm import relationship
+
+read_connect = db.Table('read', db.Model.metadata,
+    db.Column('news_id', db.Integer, db.ForeignKey('news.id')),
+    db.Column('account_id', db.Integer, db.ForeignKey('account.id'))
+)
+
 
 class User(db.Model):
 
@@ -15,8 +23,12 @@ class User(db.Model):
 
     acc_type = db.Column(db.String(144), nullable=False)
     
+    read_articles = relationship("News",
+                    secondary=read_connect,
+                    backref="accounts_read")
+    
 
-
+    
     def __init__(self, name, username, password):
         print("account created")
         self.name = name
@@ -42,3 +54,15 @@ class User(db.Model):
         if self.acc_type == "ADMIN":
             return True        
         return False
+    def get_read_articles(self):
+        print(self.id)
+        
+        stmt = text("SELECT News.* FROM News,read,account WHERE account.id = :user_id AND read.news_id = News.id AND read.account_id = account.id;").params(user_id=self.id)
+    
+        res = db.engine.execute(stmt)
+
+        response = []
+        for row in res:
+            response.append(row)
+        
+        return list(reversed(response))[:10]

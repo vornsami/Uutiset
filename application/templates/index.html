@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+  {{ error }}
   <p><h3>Tuoreimmat uutiset:</h3></p>
   <table>
     {% for new in news %}

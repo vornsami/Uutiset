@@ -1,6 +1,6 @@
 from flask import render_template
 from application import app, db
-from application.tasks.models import News
+from application.articles.models import News
 
 @app.route("/")
 def aloitus():

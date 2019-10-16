@@ -25,8 +25,8 @@ from flask_login import LoginManager
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-login_manager.login_view = "auth_login"
-login_manager.login_message = "Please login to use this functionality."
+login_manager.login_view = "aloitus"
+login_manager.login_message = "Unauthorized."
 
 from functools import wraps
 from flask_login import current_user
@@ -59,8 +59,10 @@ def login_required(role="ANY"):
 	
 from application import views
 
-from application.tasks import models
-from application.tasks import views
+from application.articles import models
+from application.articles import views
+
+from application.management import views
 
 from application.auth import models
 from application.auth import views

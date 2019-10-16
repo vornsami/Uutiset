@@ -4,16 +4,8 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import NameForm, PasswordForm
-from application.tasks.models import Thread, Comment
+from application.articles.models import Thread, Comment
       
-@app.route("/userpage")
-@login_required
-def userpage():
-    t = Thread.query.filter_by(account_id = current_user.id)
-    
-    return render_template("auth/userpage.html", threads = t, user = current_user, 
-                               actives = actives(), inactives = inactives())
-
 @app.route("/newname", methods = ["GET", "POST"])
 @login_required
 def newname():
