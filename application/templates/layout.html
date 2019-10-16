@@ -3,59 +3,59 @@
     <head>
       <meta charset="utf-8">
       <title>Uutissivusto</title>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <style>
+      <style>
 
-		.sidenav {
-		  height: 100%;
-		  width: 200px;
-		  position: fixed;
-		  z-index: 1;
-		  top: 1;
-		  right: 0;
-		  background-color: #DDDDD0;
-		  overflow-x: hidden;
-		  padding-top: 30px;
-		}
+        .sidenav {
+          height: 100%;
+          width: 200px;
+          position: fixed;
+          z-index: 1;
+          top: 1;
+          right: 0;
+          background-color: #DDDDD0;
+          overflow-x: hidden;
+          padding-top: 30px;
+        }
 
-		.sidenav a {
-		  padding: 6px 8px 6px 16px;
-		  text-decoration: none;
-		  font-size: 10px;
-		  color: #818181;
-		  display: block;
-		}
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 10px;
+          color: #818181;
+          display: block;
+        }
 
-		.sidenav a:hover {
-		  color: #f1f1f1;
-		}
+        .sidenav a:hover {
+          color: #f1f1f1;
+        }
 
-		.main {
-		  margin-right: 160px;
-		  padding: 0px 10px;
-		}
+        .main {
+          margin-right: 160px;
+          padding: 0px 10px;
+        }
 
-		@media screen and (max-height: 450px) {
-		  .sidenav {padding-top: 15px;}
-		  .sidenav a {font-size: 18px;}
-		}
-		article {
-		float: left;
-		padding: 20px;
-		width: 70%;
-		background-color: #f1f1f1;
-	  }
-	  </style>
-	</head>
-	
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+        article {
+        float: left;
+        padding: 20px;
+        width: 70%;
+        background-color: #f1f1f1;
+      }
+      </style>
+    </head>
+    
     <body>
       <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-  	    <a class="navbar-brand" href="#">Uutissivusto</a>
-	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="{{ url_for('aloitus') }}">Uutissivusto</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-	    </button>
-	    <div class="collapse navbar-collapse" id="navbarCollapse">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('aloitus') }}">Etusivu</a>
@@ -63,18 +63,18 @@
             <li class="nav-item">
               <a class="nav-link" href="{{ url_for('news_index') }}">Uutiset</a>
             </li>
-			<li class="nav-item">
+            <li class="nav-item">
               <a class="nav-link" href="{{ url_for('categories') }}">Kategoriat</a>
             </li>
-			{% if current_user.is_admin %}
-			<li class="nav-item">
+            {% if current_user.is_admin %}
+            <li class="nav-item">
               <a class="nav-link" href="{{ url_for('news_form') }}">Kirjoita artikkeli</a>
             </li>
-			{% else %}
-			{% endif %}
+            {% else %}
+            {% endif %}
           </ul>
           <div class="form-inline mt-2 mt-md-0">
-	    {% if current_user.is_authenticated %}
+        {% if current_user.is_authenticated %}
         
            <font color="white">Kirjautunut nimellä: {{ current_user.name }} |</font> <a href="{{ url_for('kirjaaulos') }}">| Kirjaudu ulos |</a>
         
@@ -82,25 +82,25 @@
         <a href="{{ url_for('kirjaudu') }}">Kirjaudu</a>
           {% endif %}
           </div>
-	    </div>
+        </div>
       </nav>
-	  {% if current_user.is_authenticated %}
-	  <div class="sidenav">
+      {% if current_user.is_authenticated %}
+      <div class="sidenav">
         
-		<h4>Viimeksi luetut artikkelit:</h4>
-		{% for article in current_user.get_read_articles() %}
+        <h4>Viimeksi luetut artikkelit:</h4>
+        {% for article in current_user.get_read_articles() %}
         <tr>
           <tr>
             <td><a href="{{ url_for('news_read',news_id = article.id) }}">{{ article.title }}</a></td>
           </tr>
         </tr>
         {% endfor %}
-		
-		
+        
+        
       </div>
-	  {% endif %}
-	  
-	  
+      {% endif %}
+      
+      
 
       <article>
       {% block body %}
@@ -108,8 +108,8 @@
     Mikäli näet tämän tekstin, on jokin mennyt vikaan.
       </p>
       {% endblock %}
-	  </article>
-	  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      </article>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>

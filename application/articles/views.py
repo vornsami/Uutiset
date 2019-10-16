@@ -31,22 +31,23 @@ def news_create():
 @app.route("/news/<news_id>/", methods=["GET", "POST"])
 def news_read(news_id):
     
-    article = News.find_article(news_id)
-    taglist = News.find_tags(news_id)
-	
+    a = News.find_article(news_id)
+    t = News.find_tags(news_id)
+    r = News.get_read_count(news_id)
+    
     if current_user.is_authenticated:
         
         n = News.query.get(news_id)
         u = User.query.get(current_user.id)
         u.read_articles.append(n)
-        db.session().commit()		
+        db.session().commit()        
     
     return render_template("articles/read.html", 
-                title = article[0], 
-                content = article[1],
-                tags = taglist
+                article = a,
+                tags = t,
+                reads = r
     )
-	
+    
 @app.route("/categories", methods=["GET"])
 def categories():
     return render_template("articles/categories.html", tags = Tag.query.all())
@@ -55,10 +56,10 @@ def categories():
 def articles_with_tag(tag_id):
 
     a = Tag.find_articles_with_tag(tag_id)
-	
+    
     
     return render_template("articles/list.html", news = list(reversed((a))))
-	
+    
 
 
 

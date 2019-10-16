@@ -2,15 +2,16 @@
 
 {% block body %}
 
-  <p><h3>{{ title }}:</h3></p>
+  <p><h3>{{ article.title }}</h3></p>
   
-  <p style="text-align:left;">{{ content }}</p> 
-  
+  <p style="text-align:left;">{{ article.content }}</p> 
+  <p>Artikkeli on luettu {{ reads }} kertaa</p>
   <table>
+    <p>Kategoriat:</p>
     <tr>
     {% for tag in tags %}
       
-      <td>{{ tag }}</a></td>
+      <td><a href="{{ url_for('articles_with_tag',tag_id = tag.id) }}">{{ tag.name }}</a></td>
       
     {% endfor %}
     </tr>

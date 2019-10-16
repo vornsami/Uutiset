@@ -50,9 +50,9 @@ def tag_create():
     db.session().commit()
   
     return redirect(url_for("news_index"))
-	
-	
-	
+    
+    
+    
 
 
 

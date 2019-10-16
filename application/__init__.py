@@ -55,8 +55,8 @@ def login_required(role="ANY"):
             return fn(*args, **kwargs)
         return decorated_view
     return wrapper
-	
-	
+    
+    
 from application import views
 
 from application.articles import models
@@ -76,8 +76,8 @@ try:
     db.create_all()
 except:
     pass
-	
-#Luodaan admin-käyttäjä, mikäli sellaista ei vielä ole	
+    
+#Luodaan admin-käyttäjä, mikäli sellaista ei vielä ole    
 admin = User.query.filter_by(id=1,username="admin").first()
 if not admin:
     u = User("admin","admin","admin")

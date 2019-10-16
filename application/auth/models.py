@@ -54,6 +54,7 @@ class User(db.Model):
         if self.acc_type == "ADMIN":
             return True        
         return False
+
     def get_read_articles(self):
         print(self.id)
         

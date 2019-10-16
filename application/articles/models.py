@@ -35,29 +35,34 @@ class News(db.Model):
         
         stmt = text("SELECT * FROM News WHERE id = :x ;").params(x=x)
         
-        res = db.engine.execute(stmt).fetchall()
+        res = db.engine.execute(stmt)
+		
         response = []
-    
-        
-        response.append(res[0]['title'])
-        response.append(res[0]['content'])
-        
-        print(response)
-        return response
+        response.append(res)
+        return response[0]
         
     @staticmethod
     def find_tags(x):
     
-        stmt = text("SELECT Tag.name FROM News,Connect,Tag WHERE news.id = :x AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;").params(x=x)
+        stmt = text("SELECT Tag.* FROM News,Connect,Tag WHERE news.id = :x AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;").params(x=x)
     
         res = db.engine.execute(stmt)
 
         response = []
         for row in res:
-            response.append(row['name'])
+            response.append(row)
     
         return response
+
+    @staticmethod    
+    def get_read_count(x):
+        
+        stmt = text("SELECT COUNT(*) accounts_id FROM read,news WHERE news.id = :x AND read.news_id = news.id;").params(x=x)
     
+        res = db.engine.execute(stmt).fetchall()
+
+    
+        return res[0][0]
         
 class Tag(db.Model):
     __tablename__ = 'tag'
@@ -75,7 +80,7 @@ class Tag(db.Model):
     @staticmethod
     def find_articles_with_tag(x):
     
-        stmt = text("SELECT News.* FROM News,Connect,Tag WHERE tag.id = " + x + " AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;")
+        stmt = text("SELECT News.* FROM News,Connect,Tag WHERE tag.id = :x AND Connect.news_id = News.id AND Connect.tag_id = Tag.id;").params(x=x)
     
         res = db.engine.execute(stmt)
 
