@@ -23,10 +23,12 @@ def news_tag_management(news_id):
 @app.route("/news/<news_id>/tags/<tag_id>/", methods=["POST"])
 @login_required(role="ADMIN")
 def news_tag_add(news_id,tag_id):
-    
     n = News.query.get(news_id)
     t = Tag.query.get(tag_id)
-    n.tags.append(t)
+    if t not in n.tags:
+        n.tags.append(t)
+    else:
+        n.tags.remove(t)
     db.session().commit()
   
     return redirect(url_for("news_tag_management", news_id = news_id))
@@ -48,6 +50,8 @@ def tag_create():
     db.session().commit()
   
     return redirect(url_for("news_index"))
+	
+	
 	
 
 
